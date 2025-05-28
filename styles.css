@@ -202,3 +202,18 @@ body {
     text-align: center;
     opacity: 0.9;
 }
+
+@media (max-width: 768px) {
+    .color-card {
+        min-width: 80px;
+        height: 150px;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+}
