@@ -35,3 +35,33 @@ generateHarmoniousColors(baseHue) {
     return colors;
 }
 
+hslToHex(h, s, l) {
+    l /= 100;
+    const a = s * Math.min(l, 1 - l) / 100;
+    const f = n => {
+        const k = (n + h / 30) % 12;
+        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return Math.round(255 * color).toString(16).padStart(2, '0');
+    };
+    return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+createColorCard(color, index) {
+    const paletteContainer = document.getElementById('paletteContainer');
+    const colorCard = document.createElement('div');
+    colorCard.className = 'color-card';
+    colorCard.style.backgroundColor = color;
+    colorCard.style.animationDelay = `${index * 0.1}s`;
+
+    colorCard.innerHTML = `
+        <div class="color-info">
+            <div class="color-code">${color.toUpperCase()}</div>
+            <div class="copy-text">Click to Copy</div>
+        </div>
+    `;
+
+    colorCard.addEventListener('click', () => this.copyToClipboard(color));
+    paletteContainer.appendChild(colorCard);
+}
+
+
