@@ -64,4 +64,28 @@ createColorCard(color, index) {
     paletteContainer.appendChild(colorCard);
 }
 
+copyToClipboard(color) {
+    navigator.clipboard.writeText(color).then(() => {
+        this.showNotification(`Copied ${color} to clipboard! 🎉`);
+    });
+}
 
+savePalette() {
+    if (this.currentPalette.length === 0) return;
+    
+    const paletteId = Date.now();
+    const palette = {
+        id: paletteId,
+        colors: [...this.currentPalette],
+        timestamp: new Date().toISOString()
+    };
+
+    this.savedPalettes.unshift(palette);
+    if (this.savedPalettes.length > 10) {
+        this.savedPalettes = this.savedPalettes.slice(0, 10);
+    }
+
+    localStorage.setItem('colorPalettes', JSON.stringify(this.savedPalettes));
+    this.displaySavedPalettes();
+    this.showNotification('Palette saved successfully! 💾');
+}
