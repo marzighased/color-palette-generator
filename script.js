@@ -89,3 +89,31 @@ savePalette() {
     this.displaySavedPalettes();
     this.showNotification('Palette saved successfully! 💾');
 }
+
+displaySavedPalettes() {
+    const savedSection = document.getElementById('savedSection');
+    const savedPalettes = document.getElementById('savedPalettes');
+    
+    if (this.savedPalettes.length === 0) {
+        savedSection.style.display = 'none';
+        return;
+    }
+
+    savedSection.style.display = 'flex';
+    savedPalettes.innerHTML = '';
+
+    this.savedPalettes.forEach(palette => {
+        const paletteElement = document.createElement('div');
+        paletteElement.className = 'saved-palette';
+        paletteElement.onclick = () => this.loadPalette(palette.colors);
+
+        palette.colors.forEach(color => {
+            const colorDiv = document.createElement('div');
+            colorDiv.className = 'saved-color';
+            colorDiv.style.backgroundColor = color;
+            paletteElement.appendChild(colorDiv);
+        });
+
+        savedPalettes.appendChild(paletteElement);
+    });
+}
