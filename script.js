@@ -117,3 +117,15 @@ displaySavedPalettes() {
         savedPalettes.appendChild(paletteElement);
     });
 }
+
+loadPalette(colors) {
+    this.currentPalette = colors;
+    const paletteContainer = document.getElementById('paletteContainer');
+    paletteContainer.innerHTML = '';
+
+    colors.forEach((color, index) => {
+        this.createColorCard(color, index);
+    });
+
+    this.showNotification('Palette loaded! 🎨');
+}
