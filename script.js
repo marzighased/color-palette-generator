@@ -139,3 +139,21 @@ showNotification(message) {
         notification.classList.remove('show');
     }, 3000);
 }
+
+bindEvents() {
+    document.getElementById('generateBtn').addEventListener('click', () => {
+        this.generatePalette();
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', () => {
+        this.savePalette();
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && !e.target.matches('input, textarea')) {
+            e.preventDefault();
+            this.generatePalette();
+        }
+    });
+}
